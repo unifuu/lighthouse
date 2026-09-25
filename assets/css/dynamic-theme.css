@@ -1,0 +1,264 @@
+{{- /* Theme Color Configuration System */ -}}
+{{- $themeColor := .Site.Params.themeColor | default "beige" -}}
+{{- $customColors := .Site.Params.customThemeColors -}}
+
+{{- $presets := dict 
+    "default" (dict 
+        "theme" "rgb(255, 255, 255)"
+        "entry" "rgb(255, 255, 255)"
+        "primary" "rgb(30, 30, 30)"
+        "secondary" "rgb(108, 108, 108)"
+        "tertiary" "rgb(214, 214, 214)"
+        "content" "rgb(30, 30, 30)"
+        "border" "rgb(238, 238, 238)"
+    )
+    "beige" (dict 
+        "theme" "rgb(238, 234, 225)"
+        "entry" "rgb(248, 245, 238)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(205, 198, 185)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(215, 208, 195)"
+    )
+    "pink" (dict 
+        "theme" "rgb(248, 228, 235)"
+        "entry" "rgb(255, 240, 245)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(215, 188, 200)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(225, 198, 210)"
+    )
+    "lavender" (dict 
+        "theme" "rgb(235, 228, 248)"
+        "entry" "rgb(245, 238, 255)"
+        "primary" "rgb(40, 40, 40)"
+        "secondary" "rgb(85, 85, 85)"
+        "tertiary" "rgb(198, 188, 215)"
+        "content" "rgb(50, 50, 50)"
+        "border" "rgb(208, 198, 225)"
+    )
+-}}
+
+{{- $darkPresets := dict 
+    "default" (dict 
+        "theme" "rgb(22, 22, 22)"
+        "entry" "rgb(46, 46, 51)"
+        "primary" "rgb(218, 218, 219)"
+        "secondary" "rgb(155, 156, 157)"
+        "tertiary" "rgb(65, 66, 68)"
+        "content" "rgb(196, 196, 197)"
+        "border" "rgb(51, 51, 51)"
+    )
+    "beige" (dict 
+        "theme" "rgb(30, 28, 25)"
+        "entry" "rgb(40, 38, 35)"
+        "primary" "rgb(220, 220, 220)"
+        "secondary" "rgb(170, 170, 170)"
+        "tertiary" "rgb(60, 58, 55)"
+        "content" "rgb(200, 200, 200)"
+        "border" "rgb(50, 48, 45)"
+    )
+    "pink" (dict 
+        "theme" "rgb(30, 20, 25)"
+        "entry" "rgb(40, 30, 35)"
+        "primary" "rgb(220, 220, 220)"
+        "secondary" "rgb(170, 170, 170)"
+        "tertiary" "rgb(60, 45, 52)"
+        "content" "rgb(200, 200, 200)"
+        "border" "rgb(50, 38, 45)"
+    )
+    "lavender" (dict 
+        "theme" "rgb(25, 20, 35)"
+        "entry" "rgb(35, 28, 45)"
+        "primary" "rgb(220, 210, 235)"
+        "secondary" "rgb(170, 160, 190)"
+        "tertiary" "rgb(50, 42, 65)"
+        "content" "rgb(200, 190, 215)"
+        "border" "rgb(45, 38, 60)"
+    )
+-}}
+
+{{- $colors := index $presets $themeColor -}}
+{{- $darkColors := index $darkPresets $themeColor -}}
+{{- if $customColors -}}
+    {{- $colors = $customColors -}}
+{{- end -}}
+
+{{- /* 1. Theme Colors */ -}}
+{{- if $colors -}}
+/* 1. Theme Colors - Only apply custom colors in Light mode */
+:root[data-theme='light'] {
+    --theme: {{ $colors.theme | safeCSS }};
+    --entry: {{ $colors.entry | safeCSS }};
+    --primary: {{ $colors.primary | safeCSS }};
+    --secondary: {{ $colors.secondary | safeCSS }};
+    --tertiary: {{ $colors.tertiary | safeCSS }};
+    --content: {{ $colors.content | safeCSS }};
+    --border: {{ $colors.border | safeCSS }};
+}
+
+/* Ensure background color is applied correctly */
+html[data-theme='light'], 
+body[data-theme='light'] {
+    background: var(--theme);
+}
+
+/* Fallback for when system preference is light and no data-theme is set yet */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme='dark']) {
+        --theme: {{ $colors.theme | safeCSS }};
+        --entry: {{ $colors.entry | safeCSS }};
+        --primary: {{ $colors.primary | safeCSS }};
+        --secondary: {{ $colors.secondary | safeCSS }};
+        --tertiary: {{ $colors.tertiary | safeCSS }};
+        --content: {{ $colors.content | safeCSS }};
+        --border: {{ $colors.border | safeCSS }};
+    }
+    html:not([data-theme='dark']), 
+    body:not([data-theme='dark']) {
+        background: var(--theme);
+    }
+}
+{{- end -}}
+
+{{- /* Dark Mode Colors */ -}}
+{{- if $darkColors -}}
+/* Apply custom colors in Dark mode */
+:root[data-theme='dark'] {
+    --theme: {{ $darkColors.theme | safeCSS }};
+    --entry: {{ $darkColors.entry | safeCSS }};
+    --primary: {{ $darkColors.primary | safeCSS }};
+    --secondary: {{ $darkColors.secondary | safeCSS }};
+    --tertiary: {{ $darkColors.tertiary | safeCSS }};
+    --content: {{ $darkColors.content | safeCSS }};
+    --border: {{ $darkColors.border | safeCSS }};
+}
+
+/* Ensure background color is applied correctly */
+html[data-theme='dark'], 
+body[data-theme='dark'] {
+    background: var(--theme);
+}
+
+/* Fallback for when system preference is dark and no data-theme is set yet */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+        --theme: {{ $darkColors.theme | safeCSS }};
+        --entry: {{ $darkColors.entry | safeCSS }};
+        --primary: {{ $darkColors.primary | safeCSS }};
+        --secondary: {{ $darkColors.secondary | safeCSS }};
+        --tertiary: {{ $darkColors.tertiary | safeCSS }};
+        --content: {{ $darkColors.content | safeCSS }};
+        --border: {{ $darkColors.border | safeCSS }};
+    }
+    html:not([data-theme='light']), 
+    body:not([data-theme='light']) {
+        background: var(--theme);
+    }
+}
+{{- end -}}
+
+{{- /* 2. Button Styles */ -}}
+{{- $btnStyle := .Site.Params.buttonStyle | default "outlined" -}}
+{{- $btnColor := .Site.Params.buttonColor | default "var(--secondary)" -}}
+
+.button {
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+    cursor: pointer;
+}
+
+{{- if eq $btnStyle "contained" -}}
+.button {
+    background-color: {{ $btnColor | safeCSS }} !important;
+    color: #fff !important;
+    border: 1px solid transparent;
+}
+.button:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+{{- else if eq $btnStyle "text" -}}
+.button {
+    background-color: transparent !important;
+    color: {{ $btnColor | safeCSS }};
+    border: 1px solid transparent;
+}
+.button:hover {
+    background-color: rgba(50, 50, 50, 0.05) !important;
+    text-decoration: none !important;
+}
+{{- else -}}
+{{- /* Outlined (Default) */ -}}
+.button {
+    background-color: transparent !important;
+    border: 1px solid {{ $btnColor | safeCSS }};
+    color: {{ $btnColor | safeCSS }};
+}
+.button:hover {
+    background-color: var(--tertiary) !important;
+    opacity: 1;
+}
+{{- end -}}
+
+{{- /* 3. Aesthetic Enhancements */ -}}
+main {
+    animation: fade-in 0.6s ease-out;
+}
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.entry-link, .book-card, .game-card {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.entry-link:hover .entry-header,
+.book-card:hover .book-cover-wrapper,
+.game-card:hover .game-cover-wrapper {
+    transform: translateY(-5px);
+}
+
+.nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Use color-mix for border transparency to support rgb() variables */
+    border-bottom: 1px solid color-mix(in srgb, var(--border), transparent 70%);
+}
+
+:root[data-theme='light'] .nav,
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme='dark']) .nav {
+        /* Use color-mix to create a semi-transparent version of the theme color */
+        background: color-mix(in srgb, var(--theme), transparent 15%) !important;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 4px;
+    opacity: 0.7;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) transparent;
+}

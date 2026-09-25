@@ -1,0 +1,76 @@
+/* Japanese language specific styles with optimized typography */
+
+/* Import cute, rounded Japanese font */
+
+/* Use M PLUS Rounded - cute and highly readable */
+body:lang(ja),
+.post-content:lang(ja) {
+    font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, "Hiragino Maru Gothic ProN", "Hiragino Sans", sans-serif;
+}
+
+/* Slightly smaller base font for Japanese */
+.post-content:lang(ja) {
+    font-size: 0.98rem;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+}
+
+/* Headings with better spacing */
+.post-content:lang(ja) h1 {
+    font-size: 1.85rem;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.post-content:lang(ja) h2 {
+    font-size: 1.55rem;
+    line-height: 1.45;
+    margin-top: 1.75rem;
+    margin-bottom: 0.875rem;
+    font-weight: 600;
+}
+
+.post-content:lang(ja) h3 {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.post-content:lang(ja) h4 {
+    font-size: 1.12rem;
+    line-height: 1.55;
+    margin-top: 1.25rem;
+    margin-bottom: 0.625rem;
+    font-weight: 600;
+}
+
+/* Paragraphs and lists */
+.post-content:lang(ja) p {
+    margin-bottom: 1.35rem;
+}
+
+.post-content:lang(ja) li {
+    margin-bottom: 0.6rem;
+    line-height: 1.85;
+}
+
+/* Code blocks - keep monospace readable */
+.post-content:lang(ja) code {
+    font-family: "Menlo", "Monaco", "Courier New", monospace;
+    font-size: 0.88em;
+}
+
+.post-content:lang(ja) pre code {
+    font-size: 0.85rem;
+    line-height: 1.65;
+}
+
+/* Blockquotes */
+.post-content:lang(ja) blockquote {
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+}

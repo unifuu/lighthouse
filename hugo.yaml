@@ -1,0 +1,116 @@
+baseURL: https://unifuu.dev/
+defaultContentLanguage: en
+languageCode: en-us
+timeZone: Asia/Tokyo
+title: Lighthouse
+theme: ["PaperMod"]
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+mainsections: ["posts", "papermod"]
+
+minify:
+  disableXML: true
+  # minifyOutput: true
+
+params:
+  env: production
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto # Options: auto / dark / light
+  themeColor: beige # Options: default / beige / pink / lavender
+  id: 250
+  buttonStyle: outlined # Options: text / contained / outlined
+  disableTextSelection: false # Disable text selection on homepage, menu, and footer
+  buttonColor:
+  disableThemeToggle: true
+  ShowShareButtons: false
+  ShowReadingTime: false
+  disableSpecial1stPost: true
+  displayFullLangName: true
+  ShowPostNavLinks: false
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  ShowToc: true
+  games:
+    cardsClickable: false
+
+  footer:
+    hideCopyright: true
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "favicon.svg"
+    favicon16x16: "favicon.svg"
+    favicon32x32: "favicon.svg"
+    apple_touch_icon: "favicon.svg"
+    safari_pinned_tab: "favicon.svg"
+
+  label:
+    text: "Lighthouse"
+    # icon: /apple-touch-icon.png
+    # iconHeight: 35
+
+  cover:
+    draft: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  # for search
+  # https://fusejs.io/api/options.html
+  enableSearch: true
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 200
+    threshold: 0.3
+    minMatchCharLength: 2
+    limit: 8
+    keys: ["title", "summary", "tags", "content"]
+
+markup:
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+  section:
+    - HTML
+    - RSS
+  page:
+    - HTML
+
+languages:
+  en:
+    languageName: en
+    languageCode: en-us
+    weight: 1
+    params:
+    menu:
+      main:
+        - identifier: posts
+          name: Posts
+          url: /posts/
+          weight: 10
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 20
+        - identifier: search
+          name: Search
+          url: /search/
+          weight: 30
