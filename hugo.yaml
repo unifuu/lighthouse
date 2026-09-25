@@ -20,6 +20,7 @@ minify:
 params:
   env: production
   DateFormat: "January 2, 2006"
+  i18n: false
   defaultTheme: auto # Options: auto / dark / light
   themeColor: beige # Options: default / beige / pink / lavender
   id: 250

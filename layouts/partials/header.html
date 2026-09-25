@@ -58,7 +58,7 @@
                 </button>
                 {{- end }}
                 
-                {{- if and (not site.Params.disableLangToggle) (or .IsHome .IsSection (eq .Layout "search") (eq .Kind "term")) }}
+                {{- if and site.Params.i18n (not site.Params.disableLangToggle) (or .IsHome .IsSection (eq .Layout "search") (eq .Kind "term")) }}
                     {{- $currentPage := . -}}
                     {{- $currentLang := site.Language.Lang -}}
                     {{- $isEn := eq $currentLang "en" -}}
