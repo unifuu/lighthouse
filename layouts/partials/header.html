@@ -58,28 +58,22 @@
                 </button>
                 {{- end }}
                 
-                {{- /* MUI-Style Language Switcher (Reverted) */ -}}
-                {{- if (not site.Params.disableLangToggle) }}
+                {{- if and (not site.Params.disableLangToggle) (or .IsHome .IsSection (eq .Layout "search") (eq .Kind "term")) }}
                     {{- $currentPage := . -}}
                     {{- $currentLang := site.Language.Lang -}}
-                    {{- $isJa := eq $currentLang "ja" -}}
-                    {{- $isHk := eq $currentLang "hk" -}}
                     {{- $isEn := eq $currentLang "en" -}}
-                    
-                    {{- /* Build URL map for all languages */ -}}
+                    {{- $isHk := eq $currentLang "hk" -}}
+                    {{- $isJa := eq $currentLang "ja" -}}
+
                     {{- $langUrls := dict -}}
-                    
-                    {{- /* Add current page URL */ -}}
                     {{- $langUrls = merge $langUrls (dict $currentLang $currentPage.Permalink) -}}
-                    
-                    {{- /* Add translation URLs */ -}}
+
                     {{- if $currentPage.IsTranslated -}}
                         {{- range $currentPage.Translations -}}
                             {{- $langUrls = merge $langUrls (dict .Lang .Permalink) -}}
                         {{- end -}}
                     {{- end -}}
-                    
-                    {{- /* Add home URLs for missing languages */ -}}
+
                     {{- range site.Sites -}}
                         {{- $lang := .Language.Lang -}}
                         {{- if not (index $langUrls $lang) -}}
@@ -87,10 +81,11 @@
                         {{- end -}}
                     {{- end -}}
 
-                    <!-- <div class="lang-switcher" title="Toggle Language">
+                    <div class="lang-switcher" title="Toggle Language">
                         <span class="lang-option {{ if $isEn }}active{{ end }}" data-url="{{ index $langUrls "en" }}" data-lang="en">☕️</span>
+                        <span class="lang-option {{ if $isHk }}active{{ end }}" data-url="{{ index $langUrls "hk" }}" data-lang="hk">🧋</span>
                         <span class="lang-option {{ if $isJa }}active{{ end }}" data-url="{{ index $langUrls "ja" }}" data-lang="ja">🍵</span>
-                    </div> -->
+                    </div>
                 {{- end }}
             </div>
         </div>
@@ -154,12 +149,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // OS Detection for Windows-specific emojis
         const isWindows = navigator.platform.indexOf('Win') > -1 || navigator.userAgent.indexOf('Windows') > -1;
         if (isWindows) {
             const enOption = document.querySelector('.lang-option[data-lang="en"]');
+            const hkOption = document.querySelector('.lang-option[data-lang="hk"]');
             const jaOption = document.querySelector('.lang-option[data-lang="ja"]');
             if (enOption) enOption.textContent = '☕️';
+            if (hkOption) hkOption.textContent = '🧋';
             if (jaOption) jaOption.textContent = '🍵';
         }
 

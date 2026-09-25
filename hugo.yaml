@@ -96,10 +96,12 @@ outputs:
 
 languages:
   en:
-    languageName: en
+    languageName: "🇺🇸"
     languageCode: en-us
     weight: 1
     params:
+      languageAltTitle: "English"
+      DateFormat: "January 2, 2006"
     menu:
       main:
         - identifier: posts
@@ -112,5 +114,47 @@ languages:
           weight: 20
         - identifier: search
           name: Search
+          url: /search/
+          weight: 30
+  hk:
+    languageName: "🇭🇰"
+    languageCode: zh-hk
+    weight: 2
+    params:
+      languageAltTitle: "繁體中文"
+      DateFormat: "1月2日"
+    menu:
+      main:
+        - identifier: posts
+          name: 文章
+          url: /hk/posts/
+          weight: 10
+        - identifier: tags
+          name: 標籤
+          url: /tags/
+          weight: 20
+        - identifier: search
+          name: 搜尋
+          url: /search/
+          weight: 30
+  ja:
+    languageName: "🇯🇵"
+    languageCode: ja
+    weight: 3
+    params:
+      languageAltTitle: "日本語"
+      DateFormat: "1月2日"
+    menu:
+      main:
+        - identifier: posts
+          name: 投稿
+          url: /ja/posts/
+          weight: 10
+        - identifier: tags
+          name: タグ
+          url: /tags/
+          weight: 20
+        - identifier: search
+          name: 検索
           url: /search/
           weight: 30
