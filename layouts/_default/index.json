@@ -1,0 +1,16 @@
+{{- $.Scratch.Add "index" slice -}}
+{{- range site.Sites -}}
+    {{- range where .RegularPages "Section" "posts" -}}
+        {{- if not .Params.searchHidden -}}
+        {{- $.Scratch.Add "index" (dict
+            "title" .Title
+            "content" .Plain
+            "permalink" .Permalink
+            "summary" .Summary
+            "tags" .Params.tags
+            "language" .Language.Lang
+        ) -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}
