@@ -1,0 +1,43 @@
+{{- define "main" }}
+
+{{- if .Title }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+{{- end }}
+
+<ul class="terms-tags">
+    {{- $names := slice }}
+    {{- range site.Sites }}
+        {{- with .Taxonomies.tags }}
+            {{- range .Alphabetical }}
+                {{- $names = $names | append .Name }}
+            {{- end }}
+        {{- end }}
+    {{- end }}
+    {{- range sort (uniq $names) }}
+        {{- $name := . }}
+        {{- $count := 0 }}
+        {{- $target := site.GetPage (printf "/tags/%s" $name) }}
+        {{- range site.Sites }}
+            {{- with .Taxonomies.tags.Get $name }}
+                {{- $count = add $count .Count }}
+            {{- end }}
+            {{- if not $target }}
+                {{- $target = .GetPage (printf "/tags/%s" $name) }}
+            {{- end }}
+        {{- end }}
+        {{- with $target }}
+    <li>
+        <a href="{{ .Permalink }}">{{ .LinkTitle }} <sup><strong><sup>{{ $count }}</sup></strong></sup></a>
+    </li>
+        {{- end }}
+    {{- end }}
+</ul>
+
+{{- end }}{{/* end main */ -}}
